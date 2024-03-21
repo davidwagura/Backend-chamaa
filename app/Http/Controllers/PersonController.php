@@ -57,7 +57,7 @@ class PersonController extends Controller
     public function addPassword(Request $request)
     {
         $request->validate([
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|confirmed',
         ]);
     
         $person = new Person();
