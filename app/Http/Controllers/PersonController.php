@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Person;
-use Illuminate\Http\Request;
 
+use App\Models\Phrase;
+use App\Models\Username;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use function Laravel\Prompts\confirm;
 
@@ -12,77 +16,20 @@ class PersonController extends Controller
 {
     public function createUser(Request $request)
     {
-        $person = new Person();
-          
-        $person->username = $request->username;
-
-        // $token = 'dffdfdfdfdfdfdfdf0d0f0df0dfd\d[vo';
-
-        // $person->token = $token;
-
-        if($person->save()){
-
-            return response()->json([
-
-                'status' => true,
-
-                'message' => 'User registered successfully'
-
-            ], 200);
-        }
-
-
-        return response()->json([
-
-            'status' => true,
-
-            'message' => 'User not Successfully created'
-
-        ],401);
-
-
-    }
-
-    public function addPhrase(Request $request)
-    {
-        $person = new Person();
-
-        $person->phrase = $request->phrase;
-        
-        if($person->save()){
-
-            return response()->json([
-
-                'status' => true,
-
-                'message' => 'Phrase added successfully'
-
-            ], 200);
-        }
-
-
-        return response()->json([
-
-            'status' => true,
-
-            'message' => 'Phrase not Successfully added'
-
-        ],401);
-    }
-
-    public function addPassword(Request $request)
-    {
         $request->validate([
 
             'password' => 'required|confirmed',
 
         ]);
     
-        $person = new Person();
+        $user = User::create([
 
-        $person->password = Hash::make($request->password);
-        
-        if($person->save()){
+
+            'password' => Hash::make($request->password),
+
+        ]);
+            
+        if($user->save()){
 
             return response()->json([
 
@@ -92,6 +39,7 @@ class PersonController extends Controller
 
             ], 200);
         }
+        
 
         return response()->json([
 
@@ -100,9 +48,124 @@ class PersonController extends Controller
             'message' => 'Password not Successfully added'
 
         ],401);
+        
     }
 
-    public function login()
+    public function username(Request $request)
+    {
+        $request->validate([
+
+            'username' => 'required',
+
+        ]);
+    
+        $username = Username::create([
+
+
+            'username' => $request->username,
+
+        ]);
+            
+        if($username->save()){
+
+            return response()->json([
+
+                'status' => true,
+
+                'message' => 'Password added successfully'
+
+            ], 200);
+        }
+        
+
+        return response()->json([
+
+            'status' => true,
+
+            'message' => 'Password not Successfully added'
+
+        ],401);
+        
+    }
+
+    
+
+    public function addPhrase(Request $request)
+    {
+        $request->validate([
+
+            'phrase' => 'required|confirmed',
+
+        ]);
+    
+        $phrase = Phrase::create([
+
+
+            'phrase' => $request->password,
+
+        ]);
+            
+        if($phrase->save()){
+
+            return response()->json([
+
+                'status' => true,
+
+                'message' => 'Phrase added successfully'
+
+            ], 200);
+        }
+        
+
+        return response()->json([
+
+            'status' => true,
+
+            'message' => 'Phrase not Successfully added'
+
+        ],401);
+        
+    }
+    
+
+    public function addPassword(Request $request)
+    {
+        $request->validate([
+
+            'password' => 'required|confirmed',
+
+        ]);
+    
+        $user = User::create([
+
+
+            'password' => Hash::make($request->password),
+
+        ]);
+            
+        if($user->save()){
+
+            return response()->json([
+
+                'status' => true,
+
+                'message' => 'Password added successfully'
+
+            ], 200);
+        }
+        
+
+        return response()->json([
+
+            'status' => true,
+
+            'message' => 'Password not Successfully added'
+
+        ],401);
+        
+    }
+
+    public function login(Request $request)
     {
         $request->validate ([
 
@@ -135,7 +198,7 @@ class PersonController extends Controller
 
         ],401);
     }
-
+}
 
 
 
