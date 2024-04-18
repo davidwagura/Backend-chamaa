@@ -10,6 +10,11 @@ class Password extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'password',
+        'confirm_password'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

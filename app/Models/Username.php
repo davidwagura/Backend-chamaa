@@ -10,6 +10,11 @@ class Username extends Model
 {
     use HasFactory;
 
+    protected $fillable =
+    [
+        'username'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
