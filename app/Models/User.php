@@ -1,24 +1,31 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Models;
 
-class CreateUsersTable extends Migration
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Model
 {
-    public function up()
+    use HasFactory;
+
+    public function password()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('username')->unique();
-            $table->string('phrase')->nullable();
-            $table->string('password');
-            $table->timestamps();
-        });
+        return $this->hasOne(Password::class);
     }
 
-    public function down()
+    public function paymail()
     {
-        Schema::dropIfExists('users');
+        return $this->hasOne(Paymail::class);
+    }
+
+    public function phrase()
+    {
+        return $this->hasOne(Phrase::class);
+    }
+
+    public function username()
+    {
+        return $this->hasOne(Username::class);
     }
 }

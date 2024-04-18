@@ -107,7 +107,7 @@ class PersonController extends Controller
         $request->validate ([
 
             'paymail' => 'required|string',
-            
+
             'password' => 'required'
         ]);
 
@@ -121,7 +121,7 @@ class PersonController extends Controller
 
                 'authorization' => [
 
-                    'token' => $user -> createdToken('ApiToken')->plainTextToken,
+                    'token' => $user -> createToken('ApiToken')->plainTextToken,
 
                     'type' => 'bearer',
 
